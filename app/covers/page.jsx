@@ -4,7 +4,7 @@ const Covers = () => {
   return (
     <section className="w-full">
       <div className="text-2xl font-bold p-4 mb-4">Portadas</div>
-      <div className="flex flex-col w-full items-center">
+      <div className="flex flex-col w-full items-center p-4">
         <p className="text-lg font-bold">Crea portadas</p>
         <p className="text-gray-500">
           Crea una portada para gestionar los enlaces y redes sociales de tu
