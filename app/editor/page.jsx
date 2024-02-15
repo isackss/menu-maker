@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import qr from "../../assets/img/qr.png";
 import { Button } from "@/components/ui/button";
@@ -11,6 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,8 +27,44 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import MenuEditor from "@/components/MenuEditor";
 
 const Editor = () => {
+  const [companyData, setCompanyData] = useState({
+    companyName: "Demo",
+    companyId: "",
+    menus: [
+      {
+        menuId: 1,
+        companyId: "",
+        menuName: "",
+        categories: [
+          {
+            catId: 1,
+            catName: "Bebidas",
+          },
+        ],
+        items: [
+          {
+            name: "",
+            description: "",
+            price: "",
+            imgUrl: "",
+            category: "",
+          },
+        ],
+      },
+    ],
+  });
+
+  console.log(companyData.menus.length);
+
+  const handleSubmit = (e) => {
+    const name = e.currentTarget.elements.name.value;
+    console.log(name);
+    setCompanyData((prev) => ({ ...prev, companyName: name }));
+    e.preventDefault();
+  };
   return (
     <section className="w-full p-4">
       <div className="text-2xl font-bold mb-4">Editor</div>
@@ -37,7 +77,7 @@ const Editor = () => {
             <div>
               <CardHeader>
                 <CardTitle className="">Nombre del negocio</CardTitle>
-                <CardDescription>Restaurante</CardDescription>
+                <CardDescription>{companyData.companyName}</CardDescription>
               </CardHeader>
               <CardContent>
                 <p>
@@ -61,23 +101,23 @@ const Editor = () => {
                 <DialogContent className="sm:max-w-[425px]">
                   <DialogHeader>
                     <DialogTitle>Configuración del menú</DialogTitle>
-                    <DialogDescription>
+                    {/* <DialogDescription>
                       Make changes to your profile here. Click save when youre
                       done.
-                    </DialogDescription>
+                    </DialogDescription> */}
                   </DialogHeader>
-                  <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <Label htmlFor="name" className="text-right">
+                  <form className="" onSubmit={handleSubmit}>
+                    <div className="grid gap-4 py-4">
+                      <Label htmlFor="name" className="">
                         Nombre del negocio
                       </Label>
                       <Input
                         id="name"
-                        placeHolder="Restaurante Sabores"
+                        name="name"
+                        placeholder="Restaurante Sabores"
                         className="col-span-3"
                       />
-                    </div>
-                    {/* <div className="grid grid-cols-4 items-center gap-4">
+                      {/* <div className="grid grid-cols-4 items-center gap-4">
                       <Label htmlFor="username" className="text-right">
                         Username
                       </Label>
@@ -87,10 +127,16 @@ const Editor = () => {
                         className="col-span-3"
                       />
                     </div> */}
-                  </div>
-                  <DialogFooter>
-                    <Button type="submit">Guardar cambios</Button>
-                  </DialogFooter>
+                    </div>
+                    <DialogFooter>
+                      <DialogClose
+                        type="submit"
+                        className="bg-slate-900 text-white py-2 px-4 rounded-md text-sm"
+                      >
+                        Guardar cambios
+                      </DialogClose>
+                    </DialogFooter>
+                  </form>
                 </DialogContent>
               </Dialog>
             </CardContent>
@@ -99,7 +145,13 @@ const Editor = () => {
             </div>
           </Card>
         </div>
-        <Card className="flex-1 border p-4">Sin información para mostrar.</Card>
+        <Card className="flex-1 border px-4">
+          {companyData?.menus.length > 0 ? (
+            <MenuEditor data={companyData.menus} />
+          ) : (
+            "Sin información"
+          )}
+        </Card>
       </div>
     </section>
   );
