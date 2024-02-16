@@ -46,11 +46,11 @@ const Editor = () => {
         ],
         items: [
           {
-            name: "",
-            description: "",
-            price: "",
+            name: "Cocacola Lata",
+            description: "Lata 12oz",
+            price: "1.50",
             imgUrl: "",
-            category: "",
+            category: "Bebidas",
           },
         ],
       },
