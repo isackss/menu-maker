@@ -43,14 +43,32 @@ const Editor = () => {
             catId: 1,
             catName: "Bebidas",
           },
+          {
+            catId: 2,
+            catName: "Almuerzos",
+          },
         ],
         items: [
           {
             name: "Cocacola Lata",
-            description: "Lata 12oz",
+            description: "Cocacola de 12oz lata.",
             price: "1.50",
             imgUrl: "",
             category: "Bebidas",
+          },
+          {
+            name: "Pepsi Lata",
+            description: "Pepsi de 12oz lata.",
+            price: "1.50",
+            imgUrl: "",
+            category: "Bebidas",
+          },
+          {
+            name: "Pasta al pesto con pollo",
+            description: "Deliciosa pasta al pesto con pollo.",
+            price: "6.75",
+            imgUrl: "",
+            category: "Almuerzos",
           },
         ],
       },
