@@ -47,6 +47,10 @@ const Editor = () => {
             catId: 2,
             catName: "Almuerzos",
           },
+          {
+            catId: 3,
+            catName: "Entradas",
+          },
         ],
         items: [
           {
@@ -75,14 +79,56 @@ const Editor = () => {
     ],
   });
 
-  console.log(companyData.menus.length);
-
   const handleSubmit = (e) => {
     const name = e.currentTarget.elements.name.value;
-    console.log(name);
     setCompanyData((prev) => ({ ...prev, companyName: name }));
     e.preventDefault();
   };
+
+  const addProducts = (e) => {
+    e.preventDefault();
+    const { name, description, price, imgUrl, category } =
+      e.currentTarget.elements;
+    console.log(name.value, description.value, price.value, category.value);
+
+    /*  setCompanyData((prev) => {
+      const itemsArray = prev.menus[0].items;
+      const updateItemsArray = itemsArray.push({
+        name: name.value,
+        description: description.value,
+        price: price.value,
+        imgUrl: "",
+        category: category.value,
+      });
+
+      return {
+        ...prev,
+        menus: [...prev.menus, (prev.menus[0].items = updateItemsArray)],
+      };
+    }); */
+    setCompanyData((prev) => ({
+      ...prev,
+      menus: [
+        {
+          ...prev.menus[0],
+          items: [
+            ...prev.menus[0].items,
+
+            {
+              name: name.value,
+              description: description.value,
+              price: price.value,
+              imgUrl: "",
+              category: category.value,
+            },
+            ,
+          ],
+        },
+      ],
+    }));
+  };
+
+  console.log(companyData);
   return (
     <section className="w-full p-4">
       <div className="text-2xl font-bold mb-4">Editor</div>
@@ -135,16 +181,6 @@ const Editor = () => {
                         placeholder="Restaurante Sabores"
                         className="col-span-3"
                       />
-                      {/* <div className="grid grid-cols-4 items-center gap-4">
-                      <Label htmlFor="username" className="text-right">
-                        Username
-                      </Label>
-                      <Input
-                        id="username"
-                        value="@peduarte"
-                        className="col-span-3"
-                      />
-                    </div> */}
                     </div>
                     <DialogFooter>
                       <DialogClose
@@ -165,7 +201,10 @@ const Editor = () => {
         </div>
         <Card className="flex-1 border px-4">
           {companyData?.menus.length > 0 ? (
-            <MenuEditor data={companyData.menus} />
+            <MenuEditor
+              data={companyData.menus}
+              addProducts={(e) => addProducts(e)}
+            />
           ) : (
             "Sin información"
           )}
